@@ -1,139 +1,48 @@
 nohup: ignoring input
 INFO:     Will watch for changes in these directories: ['/var/labsstorage/home/wolf/1hat']
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [76207] using WatchFiles
-INFO:     Started server process [76209]
+INFO:     Started reloader process [77869] using WatchFiles
+INFO:     Started server process [77871]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO:     127.0.0.1:40432 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56886 - "POST /query HTTP/1.1" 500 Internal Server Error
-WARNING:  WatchFiles detected changes in 'api.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [76209]
-INFO:     Started server process [76441]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-INFO:     127.0.0.1:36512 - "POST /query HTTP/1.1" 200 OK
-================================================================================
-ERROR in /query endpoint:
-Traceback (most recent call last):
-  File "/var/labsstorage/home/wolf/1hat/api.py", line 11, in handle_query
-    result = await process_patient_query(query)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/var/labsstorage/home/wolf/1hat/src/main.py", line 69, in process_patient_query
-    if classification.final_output.is_complex:
-       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'str' object has no attribute 'is_complex'
-
-================================================================================
-INFO:     127.0.0.1:50930 - "POST /query HTTP/1.1" 500 Internal Server Error
-WARNING:  WatchFiles detected changes in 'src/main.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [76441]
-INFO:     Started server process [76681]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-WARNING:  WatchFiles detected changes in 'src/main.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [76681]
-INFO:     Started server process [76686]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-================================================================================
-ERROR in /query endpoint:
-Traceback (most recent call last):
-  File "/var/labsstorage/home/wolf/1hat/api.py", line 11, in handle_query
-    result = await process_patient_query(query)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/var/labsstorage/home/wolf/1hat/src/main.py", line 72, in process_patient_query
-    if classification.is_complex:
-       ^^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'str' object has no attribute 'is_complex'
-
-================================================================================
-INFO:     127.0.0.1:60954 - "POST /query HTTP/1.1" 500 Internal Server Error
-WARNING:  WatchFiles detected changes in 'src/main.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [76686]
-INFO:     Started server process [76863]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-Classification result type: <class 'str'>
-Classification result value: If you're experiencing a headache, here are some general tips:
-- Rest in a quiet, dark place
-- Stay hydrated by drinking water
-- Take over-the-counter pain relievers like acetaminophen or ibuprofen if needed
-- Avoid bright lights and loud noises
-
-Seek medical attention if:
-- The headache is severe or sudden
-- It persists for several days
-- You experience additional symptoms such as vision changes, weakness, confusion, or fever
-
-If you have any concerns or if symptoms worsen, consult a healthcare professional.
-WARNING: Classification returned as string, attempting to parse
-================================================================================
-ERROR in /query endpoint:
-Traceback (most recent call last):
-  File "/var/labsstorage/home/wolf/1hat/api.py", line 11, in handle_query
-    result = await process_patient_query(query)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/var/labsstorage/home/wolf/1hat/src/main.py", line 79, in process_patient_query
-    classification_dict = json.loads(classification)
-                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/json/__init__.py", line 346, in loads
-    return _default_decoder.decode(s)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/json/decoder.py", line 337, in decode
-    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/json/decoder.py", line 355, in raw_decode
-    raise JSONDecodeError("Expecting value", s, err.value) from None
-json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
-
-================================================================================
-INFO:     127.0.0.1:36054 - "POST /query HTTP/1.1" 500 Internal Server Error
-WARNING:  WatchFiles detected changes in 'src/agents/general_doctor.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [76863]
-INFO:     Started server process [77031]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
+INFO:     127.0.0.1:48984 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36322 - "GET /health HTTP/1.1" 200 OK
+Detected Language: Tamil (ta)
+Confidence: 0.99
+Translation: I have had a fever for two days.
 Classification result type: <class 'src.models.model.QueryClassification'>
-Classification result value: is_complex=False category='General health' urgency_level='Low' reasoning='A mild headache without additional symptoms typically indicates a common, non-serious condition.' requires_rag=False
-INFO:     127.0.0.1:43394 - "POST /query HTTP/1.1" 200 OK
+Classification result value: is_complex=False category='General health' urgency_level='Moderate' reasoning='Fever lasting two days could be due to minor infections or other causes; monitoring and basic advice are appropriate.' requires_rag=False
+INFO:     127.0.0.1:36324 - "POST /query HTTP/1.1" 200 OK
+Detected Language: English (en)
+Confidence: 1.0
+Translation: I have a headache and fever.
+Classification result type: <class 'src.models.model.QueryClassification'>
+Classification result value: is_complex=False category='General health' urgency_level='Low to Moderate' reasoning="Headache and fever are common symptoms that can be caused by minor infections or illnesses, usually manageable with basic care. They don't indicate immediate severe health issues but should be monitored." requires_rag=False
+INFO:     127.0.0.1:47284 - "POST /query HTTP/1.1" 200 OK
+Detected Language: Spanish (es)
+Confidence: 0.99
+Translation: I have a headache and nausea.
+Classification result type: <class 'src.models.model.QueryClassification'>
+Classification result value: is_complex=False category='Headache and Nausea' urgency_level='Low to Moderate' reasoning='Headache and nausea are common symptoms that could be due to minor issues like dehydration or a common migraine. These symptoms do not indicate an immediate severe condition, and can often be managed with simple remedies and rest.' requires_rag=False
+INFO:     127.0.0.1:41850 - "POST /query HTTP/1.1" 200 OK
 WARNING:  WatchFiles detected changes in 'src/main.py'. Reloading...
 INFO:     Shutting down
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
-INFO:     Finished server process [77031]
-WARNING:  WatchFiles detected changes in 'src/agents/general_doctor.py'. Reloading...
-INFO:     Started server process [77176]
+INFO:     Finished server process [77871]
+WARNING:  WatchFiles detected changes in 'src/models/model.py'. Reloading...
+INFO:     Started server process [78322]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-WARNING:  WatchFiles detected changes in 'src/guadrails/input_validation.py'. Reloading...
-INFO:     Started server process [77177]
+WARNING:  WatchFiles detected changes in 'src/agents/translator.py'. Reloading...
+INFO:     Started server process [78323]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-WARNING:  WatchFiles detected changes in 'api.py'. Reloading...
-INFO:     Started server process [77181]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-INFO:     Started server process [77182]
+INFO:     Started server process [78329]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Shutting down
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
-INFO:     Finished server process [77182]
-INFO:     Stopping reloader process [76207]
+INFO:     Finished server process [78329]
+INFO:     Stopping reloader process [77869]

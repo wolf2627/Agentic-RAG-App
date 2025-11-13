@@ -11,15 +11,14 @@ class MedicalContext(BaseModel):
 
 class PatientQuery(BaseModel):
     text: str
-    language: str
     patient_id: str
     timestamp: datetime = Field(default_factory=datetime.now)
 
 class TranslatedQuery(BaseModel):
-    original_text: str
+    detected_language: str  # Full language name
+    language_code: str  # ISO 639-1 code
     translated_text: str
-    source_language: str
-    target_language: str
+    confidence: float  # 0.0 to 1.0
 
 class QueryClassification(BaseModel):
     is_complex: bool

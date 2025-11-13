@@ -1,5 +1,5 @@
 from agents import Agent, Runner
-from src.models.model import PatientQuery, MedicalContext, QueryClassification
+from src.models.model import PatientQuery, MedicalContext, QueryClassification, TranslatedQuery
 from src.agents import (
     translator_agent,
     general_doctor_agent,
@@ -43,25 +43,32 @@ def fetch_patient_history(patient_id: str) -> dict:
 async def process_patient_query(query: PatientQuery):
     """Main workflow orchestration"""
     
-    # Initialize context
+    # Phase 1: Translation and Language Detection
+    translation_result = await Runner.run(
+        translator_agent,
+        query.text,
+        context=None
+    )
+    
+    # Extract the TranslatedQuery object
+    translation: TranslatedQuery = translation_result.final_output
+    
+    print(f"Detected Language: {translation.detected_language} ({translation.language_code})")
+    print(f"Confidence: {translation.confidence}")
+    print(f"Translation: {translation.translated_text}")
+    
+    # Initialize context with detected language
     context = MedicalContext(
-        original_language=query.language,
+        original_language=translation.language_code,
         patient_id=query.patient_id,
         session_id=generate_session_id(),
         medical_history=fetch_patient_history(query.patient_id)
     )
     
-    # Phase 1: Translation
-    translated = await Runner.run(
-        translator_agent,
-        query.text,
-        context=context
-    )
-    
     # Phase 2: Triage and Processing
     classification_result = await Runner.run(
         general_doctor_agent,
-        translated.final_output,
+        translation.translated_text,
         context=context
     )
     
@@ -83,14 +90,14 @@ async def process_patient_query(query: PatientQuery):
     if classification.is_complex:
         diagnosis = await Runner.run(
             diagnoser_agent,
-            translated.final_output,
+            translation.translated_text,
             context=context
         )
         response = diagnosis.final_output
     else:
         simple_response = await Runner.run(
             ai_agent,
-            translated.final_output,
+            translation.translated_text,
             context=context
         )
         response = simple_response.final_output
@@ -98,12 +105,15 @@ async def process_patient_query(query: PatientQuery):
     # Phase 3: Native Language Translation
     final_response = await Runner.run(
         native_language_agent,
-        f"Translate to {query.language}: {response}",
+        f"Translate to {translation.detected_language}: {response}",
         context=context
     )
     
     return {
         "response": final_response.final_output,
+        "detected_language": translation.detected_language,
+        "language_code": translation.language_code,
+        "confidence": translation.confidence,
         "classification": classification,
         "session_id": context.session_id
     }
