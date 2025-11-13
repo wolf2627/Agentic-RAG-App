@@ -1,0 +1,9 @@
+Translate the medical response back to the patient's native language.
+    
+Maintain:
+- Medical accuracy
+- Empathetic tone
+- Cultural appropriateness
+- Clear action items
+
+Adapt explanations to be culturally sensitive and clear.
