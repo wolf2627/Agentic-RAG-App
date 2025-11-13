@@ -9,8 +9,8 @@ import logging
 
 import chromadb
 
-from rag.config import Settings, get_settings
-from rag.openai_client import OpenAIClient
+from src.rag.config import Settings, get_settings
+from src.rag.openai_client import OpenAIClient
 
 logger = logging.getLogger(__name__)
 
@@ -25,6 +25,7 @@ class DocumentChunk:
     source_path: str
     chunk_index: int
     content: str
+    patient_id: str
 
 
 @dataclass(frozen=True)
@@ -85,6 +86,7 @@ class VectorStore:
                 "document_id": chunk.document_id,
                 "source_path": chunk.source_path,
                 "chunk_index": chunk.chunk_index,
+                "patient_id": chunk.patient_id,
             }
             for chunk in chunks
         ]
@@ -97,18 +99,29 @@ class VectorStore:
             metadatas=metadatas,
         )
 
-    def similarity_search(self, embedding: Sequence[float], *, top_k: int) -> list[RetrievedChunk]:
+    def similarity_search(self, embedding: Sequence[float], *, top_k: int, patient_id: str | None = None) -> list[RetrievedChunk]:
         """Return top-k RetrievedChunk with `score` in [0,1] (higher == more similar).
         The original raw distance returned by Chroma is stored in metadata['distance'].
         """
         if not embedding:
             return []
 
-        result = self._collection.query(
-            query_embeddings=[list(embedding)],
-            n_results=top_k,
-            include=["documents", "metadatas", "distances"],
-        )
+        query_params = {
+            "query_embeddings": [list(embedding)],
+            "n_results": top_k,
+            "include": ["documents", "metadatas", "distances"],
+        }
+
+        if patient_id:
+            query_params["where"] = {"patient_id": patient_id}
+        
+        result = self._collection.query(**query_params)
+
+        # result = self._collection.query(
+        #     query_embeddings=[list(embedding)],
+        #     n_results=top_k,
+        #     include=["documents", "metadatas", "distances"],
+        # )
 
         ids = result.get("ids", [[]])[0]
         documents = result.get("documents", [[]])[0]
@@ -138,11 +151,11 @@ class VectorStore:
 
         return retrieved
 
-    def similarity_search_text(self, query: str, *, client: OpenAIClient , top_k: int) -> list[RetrievedChunk]:
+    def similarity_search_text(self, query: str, *, client: OpenAIClient, top_k: int, patient_id: str | None = None) -> list[RetrievedChunk]:
         """Embed the query and perform a similarity search."""
         
         embedding = client.embed_text(query)
-        return self.similarity_search(embedding, top_k=top_k)
+        return self.similarity_search(embedding, top_k=top_k, patient_id=patient_id)
 
 
 def get_vector_store(settings: Settings | None = None) -> VectorStore:

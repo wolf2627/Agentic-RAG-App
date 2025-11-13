@@ -4,9 +4,9 @@ from functools import lru_cache
 
 from fastapi import Depends
 
-from rag.config import Settings, get_settings
-from rag.openai_client import OpenAIClient, OpenAIClientConfig
-from rag.vector_store import get_vector_store, VectorStore
+from src.rag.config import Settings, get_settings
+from src.rag.openai_client import OpenAIClient, OpenAIClientConfig
+from src.rag.vector_store import get_vector_store, VectorStore
 
 
 @lru_cache(maxsize=1)

@@ -8,14 +8,14 @@ from typing import AsyncIterator
 from fastapi import Depends, HTTPException, Query, status
 from fastapi.responses import JSONResponse, StreamingResponse
 
-from rag.api.dependencies import get_settings_dep, get_vector_store_dep, get_openai_client_dep
-from rag.api.error_handlers import _error_payload
-from rag.api.models import AskRequest, AskResponse
-from rag.api.utils import serialize_event
-from rag.config import Settings
-from rag.core.services import retrieve_context, generate_answer, sources_from_chunks
-from rag.openai_client import OpenAIClient
-from rag.vector_store import VectorStore
+from src.rag.api.dependencies import get_settings_dep, get_vector_store_dep, get_openai_client_dep
+from src.rag.api.error_handlers import _error_payload
+from src.rag.api.models import AskRequest, AskResponse
+from src.rag.api.utils import serialize_event
+from src.rag.config import Settings
+from src.rag.core.services import retrieve_context, generate_answer, sources_from_chunks
+from src.rag.openai_client import OpenAIClient
+from src.rag.vector_store import VectorStore
 
 logger = logging.getLogger(__name__)
 
@@ -41,6 +41,7 @@ async def ask_question(
         vector_store=vector_store,
         openai_client=openai_client,
         top_k=settings.top_k,
+        patient_id=body.patient_id, 
     )
 
     if not stream:

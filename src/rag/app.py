@@ -14,14 +14,14 @@ from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from tenacity import RetryError
 
-from rag.api.error_handlers import (
+from src.rag.api.error_handlers import (
     validation_exception_handler,
     http_exception_handler,
     retry_exception_handler,
     generic_exception_handler,
 )
-from rag.api.models import AskResponse
-from rag.api.routes import qa
+from src.rag.api.models import AskResponse
+from src.rag.api.routes import qa
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")

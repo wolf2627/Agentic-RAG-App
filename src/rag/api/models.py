@@ -13,6 +13,7 @@ class SourceAttribution(BaseModel):
 class AskRequest(BaseModel):
     """Request payload for /ask (question must be non-empty and reasonably sized)."""
     question: str = Field(..., min_length=3, max_length=500, description="Natural language question to answer")
+    patient_id: str = Field(..., min_length=1, description="Patient Id to fetch only respective patient's history") # patient_id field
 
     @validator("question", pre=True)
     def strip_and_validate(cls, v: str) -> str:

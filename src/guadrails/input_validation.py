@@ -1,6 +1,6 @@
 from agents import Agent, Runner, input_guardrail, GuardrailFunctionOutput
 from pydantic import BaseModel
-from helper import load_instructions
+from src.agents.helper import load_instructions
 
 class SafetyCheck(BaseModel):
     is_safe: bool

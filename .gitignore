@@ -14,10 +14,11 @@ wheels/
 .env.local
 .envrc
 
+api.log
+
 embeddings/*
 
 .github/
 docs/
 documents/
-
-api.log
+test_scripts/

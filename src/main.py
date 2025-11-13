@@ -69,7 +69,7 @@ async def process_patient_query(query: PatientQuery):
     classification_result = await Runner.run(
         general_doctor_agent,
         translation.translated_text,
-        context=context
+        context={"patient_id": query.patient_id}
     )
     
     # Debug: Print what we got
@@ -91,14 +91,14 @@ async def process_patient_query(query: PatientQuery):
         diagnosis = await Runner.run(
             diagnoser_agent,
             translation.translated_text,
-            context=context
+            context={"patient_id": query.patient_id}  # Pass patient_id to diagnoser
         )
         response = diagnosis.final_output
     else:
         simple_response = await Runner.run(
             ai_agent,
             translation.translated_text,
-            context=context
+            context={"patient_id": query.patient_id}
         )
         response = simple_response.final_output
     
@@ -106,7 +106,7 @@ async def process_patient_query(query: PatientQuery):
     final_response = await Runner.run(
         native_language_agent,
         f"Translate to {translation.detected_language}: {response}",
-        context=context
+        context={"patient_id": query.patient_id}
     )
     
     return {

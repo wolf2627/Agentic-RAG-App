@@ -8,10 +8,10 @@ import logging
 from fastapi import HTTPException, status
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception, RetryError
 
-from rag.api.models import SourceAttribution
-from rag.config import Settings
-from rag.openai_client import OpenAIClient
-from rag.vector_store import VectorStore, RetrievedChunk
+from src.rag.api.models import SourceAttribution
+from src.rag.config import Settings
+from src.rag.openai_client import OpenAIClient
+from src.rag.vector_store import VectorStore, RetrievedChunk
 
 logger = logging.getLogger(__name__)
 
@@ -53,9 +53,9 @@ def _should_retry(exc: Exception) -> bool:
     wait=_WAIT,
     retry=retry_if_exception(_should_retry),
 )
-def _retrieve_context_sync(vector_store: VectorStore, question: str, client: OpenAIClient, top_k: int):
+def _retrieve_context_sync(vector_store: VectorStore, question: str, client: OpenAIClient, top_k: int, patient_id: str | None = None):
     """Synchronous retrieval call wrapped with retries. Intended to be run in a thread."""
-    return vector_store.similarity_search_text(question, client=client, top_k=top_k)
+    return vector_store.similarity_search_text(question, client=client, top_k=top_k, patient_id=patient_id)
 
 
 @retry(
@@ -76,10 +76,10 @@ def _generate_answer_sync(openai_client: OpenAIClient, instructions: str, prompt
 
 
 # Async helpers calling the sync wrappers via threads
-async def retrieve_context(*, question: str, openai_client: OpenAIClient, vector_store: VectorStore, top_k: int) -> list[RetrievedChunk]:
+async def retrieve_context(*, question: str, patient_id: str | None = None, openai_client: OpenAIClient, vector_store: VectorStore, top_k: int) -> list[RetrievedChunk]:
     """Retrieve relevant document chunks for the question (with retries for transient failures)."""
     try:
-        chunks = await asyncio.to_thread(_retrieve_context_sync, vector_store, question, openai_client, top_k)
+        chunks = await asyncio.to_thread(_retrieve_context_sync, vector_store, question, openai_client, top_k, patient_id)
         return chunks
     except RetryError as re:
         logger.error("Retries exhausted during retrieval: %s", re)

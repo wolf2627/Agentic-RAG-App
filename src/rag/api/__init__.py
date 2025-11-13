@@ -1,7 +1,7 @@
-"""API package containing models, dependencies, and error handlers."""
+"""API models and dependencies."""
 
-from rag.api.models import AskRequest, AskResponse, SourceAttribution
-from rag.api.dependencies import get_settings_dep, get_vector_store_dep, get_openai_client_dep
+from src.rag.api.models import AskRequest, AskResponse, SourceAttribution
+from src.rag.api.dependencies import get_settings_dep, get_vector_store_dep, get_openai_client_dep
 
 __all__ = [
     "AskRequest",

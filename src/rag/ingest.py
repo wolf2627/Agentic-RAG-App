@@ -17,9 +17,9 @@ from pypdf import PdfReader
 import math
 import logging
 
-from rag.config import Settings, get_settings
-from rag.vector_store import DocumentChunk, get_vector_store
-from rag.openai_client import OpenAIClient, OpenAIClientConfig
+from src.rag.config import Settings, get_settings
+from src.rag.vector_store import DocumentChunk, get_vector_store
+from src.rag.openai_client import OpenAIClient, OpenAIClientConfig
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
@@ -117,6 +117,7 @@ def build_chunks(documents: Sequence[LoadedDocument], settings: Settings) -> lis
     chunks: list[DocumentChunk] = []
     for doc in documents:
         relative = doc.path.relative_to(active_settings.docs_path)
+        patient_id = relative.parts[0]  # folder Name = patient ID
         document_id = relative.as_posix()
         safe_document_id = document_id.replace("/", "__")
         text_chunks = chunk_text(
@@ -134,6 +135,7 @@ def build_chunks(documents: Sequence[LoadedDocument], settings: Settings) -> lis
                     source_path=str(relative),
                     chunk_index=index,
                     content=chunk_content,
+                    patient_id=patient_id,
                 )
             )
     # print(chunks)
