@@ -1,9 +1,9 @@
-from agents import Agent, function_tool
-from agents.run_context import RunContext
-from helper import load_instructions
+from agents import Agent, function_tool, RunContextWrapper
+from typing import Any
+from .helper import load_instructions
 
 @function_tool
-async def retrieve_medical_knowledge(query: str, context: RunContext) -> str:
+async def retrieve_medical_knowledge(ctx: RunContextWrapper[Any], query: str) -> str:
     """Retrieve relevant medical knowledge from RAG system."""
     # RAG implementation
     pass

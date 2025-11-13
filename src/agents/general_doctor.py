@@ -1,17 +1,15 @@
 from agents import Agent
-from pydantic import BaseModel
-from helper import load_instructions
+from src.models.model import QueryClassification
+from src.guadrails import input_safety_guardrail
+from .helper import load_instructions
 
-class QueryClassification(BaseModel):
-    is_complex: bool
-    category: str
-    urgency_level: str
-    reasoning: str
-
+# This agent only classifies queries, it doesn't hand off
+# The routing logic is handled in main.py
 general_doctor_agent = Agent(
     name="General Doctor",
     instructions=load_instructions("general_doctor"),
     output_type=QueryClassification,
-    handoffs=["ai_agent", "diagnoser_agent"],
+    # Removed handoffs - we'll handle routing in main.py instead
+    input_guardrails=[input_safety_guardrail],
     model="gpt-4.1-nano",
 )

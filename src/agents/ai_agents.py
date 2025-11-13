@@ -1,5 +1,5 @@
 from agents import Agent
-from helper import load_instructions
+from .helper import load_instructions
 
 ai_agent = Agent(
     name="AI Agent",

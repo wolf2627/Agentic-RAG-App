@@ -1,5 +1,5 @@
 from agents import Agent
-from helper import load_instructions
+from .helper import load_instructions
 
 native_language_agent = Agent(
     name="Native Language Translator",

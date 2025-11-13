@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from pydantic import BaseModel
 import json
 
-from helper import load_instructions
+from .helper import load_instructions
 
 load_dotenv()
 
