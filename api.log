@@ -1,48 +1,412 @@
 nohup: ignoring input
 INFO:     Will watch for changes in these directories: ['/var/labsstorage/home/wolf/1hat']
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [77869] using WatchFiles
-INFO:     Started server process [77871]
+INFO:     Started reloader process [79616] using WatchFiles
+INFO:     Started server process [79618]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO:     127.0.0.1:48984 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:36322 - "GET /health HTTP/1.1" 200 OK
-Detected Language: Tamil (ta)
-Confidence: 0.99
-Translation: I have had a fever for two days.
-Classification result type: <class 'src.models.model.QueryClassification'>
-Classification result value: is_complex=False category='General health' urgency_level='Moderate' reasoning='Fever lasting two days could be due to minor infections or other causes; monitoring and basic advice are appropriate.' requires_rag=False
-INFO:     127.0.0.1:36324 - "POST /query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57496 - "GET /health HTTP/1.1" 200 OK
 Detected Language: English (en)
 Confidence: 1.0
-Translation: I have a headache and fever.
+Translation: Sudden heart attack has occurred. What should we do now?
 Classification result type: <class 'src.models.model.QueryClassification'>
-Classification result value: is_complex=False category='General health' urgency_level='Low to Moderate' reasoning="Headache and fever are common symptoms that can be caused by minor infections or illnesses, usually manageable with basic care. They don't indicate immediate severe health issues but should be monitored." requires_rag=False
-INFO:     127.0.0.1:47284 - "POST /query HTTP/1.1" 200 OK
-Detected Language: Spanish (es)
+Classification result value: is_complex=True category='Emergency' urgency_level='Critical' reasoning='The query describes a sudden heart attack, which is a medical emergency requiring immediate professional intervention to prevent death or serious health consequences.' requires_rag=True
+INFO:     127.0.0.1:39786 - "POST /query HTTP/1.1" 200 OK
+Detected Language: English (en)
+Confidence: 1.0
+Translation: I have a mild headache
+Classification result type: <class 'src.models.model.QueryClassification'>
+Classification result value: is_complex=False category='Headache and Migraine' urgency_level='Low' reasoning='A mild headache is a common and generally minor issue, often manageable with basic advice or over-the-counter remedies.' requires_rag=False
+INFO:     127.0.0.1:35216 - "POST /query HTTP/1.1" 200 OK
+Detected Language: English (en)
+Confidence: 1.0
+Translation: Someone is choking and can't breathe!
+Classification result type: <class 'src.models.model.QueryClassification'>
+Classification result value: is_complex=True category='Emergency/Trauma' urgency_level='Critical' reasoning='The person is experiencing a choking emergency, which is life-threatening and requires immediate intervention by a trained professional.' requires_rag=True
+INFO:     127.0.0.1:33944 - "POST /query HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'src/guadrails/input_validation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [79618]
+INFO:     Started server process [80110]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+Detected Language: English (en)
 Confidence: 0.99
-Translation: I have a headache and nausea.
+Translation: You have cut your hand with a knife and are bleeding heavily. You should apply direct pressure to the wound with a clean cloth or bandage to stop the bleeding. If the bleeding continues or if the cut is deep, seek medical attention immediately.
 Classification result type: <class 'src.models.model.QueryClassification'>
-Classification result value: is_complex=False category='Headache and Nausea' urgency_level='Low to Moderate' reasoning='Headache and nausea are common symptoms that could be due to minor issues like dehydration or a common migraine. These symptoms do not indicate an immediate severe condition, and can often be managed with simple remedies and rest.' requires_rag=False
-INFO:     127.0.0.1:41850 - "POST /query HTTP/1.1" 200 OK
-WARNING:  WatchFiles detected changes in 'src/main.py'. Reloading...
+Classification result value: is_complex=False category='First Aid' urgency_level='High' reasoning="The advice provided is straightforward first aid for bleeding, which doesn't require complex diagnosis. Immediate action is appropriate." requires_rag=False
+INFO:     172.30.10.54:57922 - "POST /query HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'src/guadrails/input_validation.py'. Reloading...
 INFO:     Shutting down
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
-INFO:     Finished server process [77871]
-WARNING:  WatchFiles detected changes in 'src/models/model.py'. Reloading...
-INFO:     Started server process [78322]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-WARNING:  WatchFiles detected changes in 'src/agents/translator.py'. Reloading...
-INFO:     Started server process [78323]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-INFO:     Started server process [78329]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [78329]
-INFO:     Stopping reloader process [77869]
+INFO:     Finished server process [80110]
+Process SpawnProcess-3:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 67, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 71, in serve
+    await self._serve(sockets)
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 78, in _serve
+    config.load()
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/config.py", line 439, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/importer.py", line 19, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/var/labsstorage/home/wolf/1hat/api.py", line 2, in <module>
+    from src.main import process_patient_query
+  File "/var/labsstorage/home/wolf/1hat/src/main.py", line 3, in <module>
+    from src.agents import (
+  File "/var/labsstorage/home/wolf/1hat/src/agents/__init__.py", line 4, in <module>
+    from .general_doctor import general_doctor_agent
+  File "/var/labsstorage/home/wolf/1hat/src/agents/general_doctor.py", line 3, in <module>
+    from src.guadrails import input_safety_guardrail
+  File "/var/labsstorage/home/wolf/1hat/src/guadrails/__init__.py", line 2, in <module>
+    from .input_validation import input_safety_guardrail, SafetyCheck
+  File "/var/labsstorage/home/wolf/1hat/src/guadrails/input_validation.py", line 3
+    from l
+          ^
+SyntaxError: invalid syntax
+WARNING:  WatchFiles detected changes in 'src/guadrails/input_validation.py'. Reloading...
+Process SpawnProcess-4:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 67, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 71, in serve
+    await self._serve(sockets)
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 78, in _serve
+    config.load()
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/config.py", line 439, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/importer.py", line 19, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/var/labsstorage/home/wolf/1hat/api.py", line 2, in <module>
+    from src.main import process_patient_query
+  File "/var/labsstorage/home/wolf/1hat/src/main.py", line 3, in <module>
+    from src.agents import (
+  File "/var/labsstorage/home/wolf/1hat/src/agents/__init__.py", line 4, in <module>
+    from .general_doctor import general_doctor_agent
+  File "/var/labsstorage/home/wolf/1hat/src/agents/general_doctor.py", line 3, in <module>
+    from src.guadrails import input_safety_guardrail
+  File "/var/labsstorage/home/wolf/1hat/src/guadrails/__init__.py", line 2, in <module>
+    from .input_validation import input_safety_guardrail, SafetyCheck
+  File "/var/labsstorage/home/wolf/1hat/src/guadrails/input_validation.py", line 3
+    from load_instructions 
+                           ^
+SyntaxError: invalid syntax
+WARNING:  WatchFiles detected changes in 'src/guadrails/input_validation.py'. Reloading...
+Process SpawnProcess-5:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 67, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 71, in serve
+    await self._serve(sockets)
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 78, in _serve
+    config.load()
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/config.py", line 439, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/importer.py", line 19, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/var/labsstorage/home/wolf/1hat/api.py", line 2, in <module>
+    from src.main import process_patient_query
+  File "/var/labsstorage/home/wolf/1hat/src/main.py", line 3, in <module>
+    from src.agents import (
+  File "/var/labsstorage/home/wolf/1hat/src/agents/__init__.py", line 4, in <module>
+    from .general_doctor import general_doctor_agent
+  File "/var/labsstorage/home/wolf/1hat/src/agents/general_doctor.py", line 3, in <module>
+    from src.guadrails import input_safety_guardrail
+  File "/var/labsstorage/home/wolf/1hat/src/guadrails/__init__.py", line 2, in <module>
+    from .input_validation import input_safety_guardrail, SafetyCheck
+  File "/var/labsstorage/home/wolf/1hat/src/guadrails/input_validation.py", line 3
+    from load_instruction
+                         ^
+SyntaxError: invalid syntax
+WARNING:  WatchFiles detected changes in 'src/guadrails/input_validation.py'. Reloading...
+Process SpawnProcess-6:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 67, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 71, in serve
+    await self._serve(sockets)
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 78, in _serve
+    config.load()
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/config.py", line 439, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/importer.py", line 22, in import_from_string
+    raise exc from None
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/importer.py", line 19, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/var/labsstorage/home/wolf/1hat/api.py", line 2, in <module>
+    from src.main import process_patient_query
+  File "/var/labsstorage/home/wolf/1hat/src/main.py", line 3, in <module>
+    from src.agents import (
+  File "/var/labsstorage/home/wolf/1hat/src/agents/__init__.py", line 4, in <module>
+    from .general_doctor import general_doctor_agent
+  File "/var/labsstorage/home/wolf/1hat/src/agents/general_doctor.py", line 3, in <module>
+    from src.guadrails import input_safety_guardrail
+  File "/var/labsstorage/home/wolf/1hat/src/guadrails/__init__.py", line 2, in <module>
+    from .input_validation import input_safety_guardrail, SafetyCheck
+  File "/var/labsstorage/home/wolf/1hat/src/guadrails/input_validation.py", line 3, in <module>
+    from helper import load_instructions
+ModuleNotFoundError: No module named 'helper'
+WARNING:  WatchFiles detected changes in 'src/guadrails/input_validation.py'. Reloading...
+Process SpawnProcess-7:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 67, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 71, in serve
+    await self._serve(sockets)
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 78, in _serve
+    config.load()
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/config.py", line 439, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/importer.py", line 22, in import_from_string
+    raise exc from None
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/importer.py", line 19, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/var/labsstorage/home/wolf/1hat/api.py", line 2, in <module>
+    from src.main import process_patient_query
+  File "/var/labsstorage/home/wolf/1hat/src/main.py", line 3, in <module>
+    from src.agents import (
+  File "/var/labsstorage/home/wolf/1hat/src/agents/__init__.py", line 4, in <module>
+    from .general_doctor import general_doctor_agent
+  File "/var/labsstorage/home/wolf/1hat/src/agents/general_doctor.py", line 3, in <module>
+    from src.guadrails import input_safety_guardrail
+  File "/var/labsstorage/home/wolf/1hat/src/guadrails/__init__.py", line 2, in <module>
+    from .input_validation import input_safety_guardrail, SafetyCheck
+  File "/var/labsstorage/home/wolf/1hat/src/guadrails/input_validation.py", line 3, in <module>
+    from helper import load_instructions
+ModuleNotFoundError: No module named 'helper'
+WARNING:  WatchFiles detected changes in 'src/guadrails/input_validation.py'. Reloading...
+Process SpawnProcess-8:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 67, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 71, in serve
+    await self._serve(sockets)
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 78, in _serve
+    config.load()
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/config.py", line 439, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/importer.py", line 22, in import_from_string
+    raise exc from None
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/importer.py", line 19, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/var/labsstorage/home/wolf/1hat/api.py", line 2, in <module>
+    from src.main import process_patient_query
+  File "/var/labsstorage/home/wolf/1hat/src/main.py", line 3, in <module>
+    from src.agents import (
+  File "/var/labsstorage/home/wolf/1hat/src/agents/__init__.py", line 4, in <module>
+    from .general_doctor import general_doctor_agent
+  File "/var/labsstorage/home/wolf/1hat/src/agents/general_doctor.py", line 3, in <module>
+    from src.guadrails import input_safety_guardrail
+  File "/var/labsstorage/home/wolf/1hat/src/guadrails/__init__.py", line 2, in <module>
+    from .input_validation import input_safety_guardrail, SafetyCheck
+  File "/var/labsstorage/home/wolf/1hat/src/guadrails/input_validation.py", line 3, in <module>
+    from helper import load_instructions
+ModuleNotFoundError: No module named 'helper'
+WARNING:  WatchFiles detected changes in 'src/agents/experiment.py'. Reloading...
+Process SpawnProcess-9:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 67, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 71, in serve
+    await self._serve(sockets)
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/server.py", line 78, in _serve
+    config.load()
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/config.py", line 439, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/importer.py", line 22, in import_from_string
+    raise exc from None
+  File "/var/labsstorage/home/wolf/1hat/.venv/lib/python3.12/site-packages/uvicorn/importer.py", line 19, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/var/labsstorage/home/wolf/1hat/api.py", line 2, in <module>
+    from src.main import process_patient_query
+  File "/var/labsstorage/home/wolf/1hat/src/main.py", line 3, in <module>
+    from src.agents import (
+  File "/var/labsstorage/home/wolf/1hat/src/agents/__init__.py", line 4, in <module>
+    from .general_doctor import general_doctor_agent
+  File "/var/labsstorage/home/wolf/1hat/src/agents/general_doctor.py", line 3, in <module>
+    from src.guadrails import input_safety_guardrail
+  File "/var/labsstorage/home/wolf/1hat/src/guadrails/__init__.py", line 2, in <module>
+    from .input_validation import input_safety_guardrail, SafetyCheck
+  File "/var/labsstorage/home/wolf/1hat/src/guadrails/input_validation.py", line 3, in <module>
+    from helper import load_instructions
+ModuleNotFoundError: No module named 'helper'
