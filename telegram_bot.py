@@ -54,6 +54,7 @@ class MedicalTelegramBot:
         self.telegram_token = telegram_token
         self.openai_client = OpenAI(api_key=openai_api_key)
         self.patient_mapper = get_patient_mapper(mapper_mode)
+        self.whisper_model = os.getenv("WHISPER_MODEL", "whisper-1")
         self.app = None
         
     def build_application(self) -> Application:
@@ -349,7 +350,7 @@ class MedicalTelegramBot:
             with open(audio_path, 'rb') as audio_file:
                 # Use OpenAI Whisper API for transcription
                 transcript = self.openai_client.audio.transcriptions.create(
-                    model="whisper-1",
+                    model=self.whisper_model,
                     file=audio_file,
                     response_format="text"
                 )

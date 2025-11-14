@@ -1,10 +1,14 @@
 from agents import Agent, function_tool, RunContextWrapper
 from typing import Any
 from .helper import load_instructions
+import os
+from dotenv import load_dotenv
 
 # RAG imports
 from src.rag.core.services import retrieve_context
 from src.rag.api.dependencies import get_settings_dep, get_vector_store_dep, get_openai_client_dep
+
+load_dotenv()
 
 @function_tool
 async def check_patient_safety(ctx: RunContextWrapper[Any], query: str) -> str:
@@ -92,5 +96,5 @@ safety_agent = Agent(
     name="Medication Safety Specialist",
     instructions=load_instructions("safety_agent"),
     tools=[check_patient_safety],
-    model="gpt-4.1-nano",
+    model=os.getenv("SAFETY_AGENT_MODEL", "gpt-4o"),
 )

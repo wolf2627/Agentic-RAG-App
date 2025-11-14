@@ -1,10 +1,14 @@
 from agents import Agent, function_tool, RunContextWrapper
 from typing import Any
 from .helper import load_instructions
+import os
+from dotenv import load_dotenv
 
 # RAG imports
 from src.rag.core.services import retrieve_context
 from src.rag.api.dependencies import get_settings_dep, get_vector_store_dep, get_openai_client_dep
+
+load_dotenv()
 
 @function_tool
 async def retrieve_medical_knowledge(ctx: RunContextWrapper[Any], query: str) -> str:
@@ -68,5 +72,5 @@ diagnoser_agent = Agent(
     name="Diagnostic Specialist",
     instructions=load_instructions("diagnoser"),
     tools=[retrieve_medical_knowledge],
-    model="gpt-4o",
+    model=os.getenv("DIAGNOSER_MODEL", "gpt-4o"),
 )

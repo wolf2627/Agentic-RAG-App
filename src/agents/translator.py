@@ -1,22 +1,6 @@
 from agents import Agent, Runner
 from dotenv import load_dotenv
-
-# absolute import when running as script, relative when imported as module
-try:
-    from .helper import load_instructions
-except ImportError:
-    from helper import load_instructions
-
-load_dotenv()
-
-translator_agent = Agent(
-    name="Translator",
-    instructions=load_instructions("translator"),
-    model="gpt-4.1-nano",
-)
-
-from agents import Agent, Runner
-from dotenv import load_dotenv
+import os
 
 # Use absolute import when running as script, relative when imported as module
 try:
@@ -35,14 +19,14 @@ translator_agent = Agent(
     name="Language Interpreter",
     instructions=load_instructions("translator"),
     output_type=TranslatedQuery,  # Return structured output with detected language
-    model="gpt-4.1-nano",
+    model=os.getenv("TRANSLATOR_MODEL", "gpt-4.1-nano"),
 )
 
-if __name__ == "__main__":
-    # Testing the translator agent
-    user_input = "எனக்கு ரெண்டு நாளா காய்ச்சல் இருக்கு."
-    result = Runner.run_sync(translator_agent, user_input)
-    print(f"Detected Language: {result.final_output.detected_language}")
-    print(f"Language Code: {result.final_output.language_code}")
-    print(f"Translation: {result.final_output.translated_text}")
-    print(f"Confidence: {result.final_output.confidence}")
+# if __name__ == "__main__":
+#     # Testing the translator agent
+#     user_input = "எனக்கு ரெண்டு நாளா காய்ச்சல் இருக்கு."
+#     result = Runner.run_sync(translator_agent, user_input)
+#     print(f"Detected Language: {result.final_output.detected_language}")
+#     print(f"Language Code: {result.final_output.language_code}")
+#     print(f"Translation: {result.final_output.translated_text}")
+#     print(f"Confidence: {result.final_output.confidence}")
