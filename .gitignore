@@ -22,3 +22,5 @@ embeddings/*
 docs/
 documents/
 test_scripts/
+
+patient_mappings.json
