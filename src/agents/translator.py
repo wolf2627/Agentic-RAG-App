@@ -32,7 +32,7 @@ except ImportError:
 load_dotenv()
 
 translator_agent = Agent(
-    name="Translator",
+    name="Language Interpreter",
     instructions=load_instructions("translator"),
     output_type=TranslatedQuery,  # Return structured output with detected language
     model="gpt-4.1-nano",

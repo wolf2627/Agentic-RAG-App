@@ -4,7 +4,7 @@ from src.agents import (
     translator_agent,
     general_doctor_agent,
     diagnoser_agent,
-    ai_agent,
+    medical_assistant,
     native_language_agent,
 )
 
@@ -98,7 +98,7 @@ async def process_patient_query(query: PatientQuery):
     if classification.is_administrative:
         # Administrative queries (appointments, billing, etc.) - no medical context needed
         administrative = await Runner.run(
-            ai_agent,
+            medical_assistant,
             translation.translated_text,
             context=agent_context
         )
@@ -126,7 +126,7 @@ async def process_patient_query(query: PatientQuery):
     else:
         # Simple medical queries
         simple_response = await Runner.run(
-            ai_agent,
+            medical_assistant,
             translation.translated_text,
             context=agent_context
         )

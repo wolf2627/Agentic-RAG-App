@@ -65,7 +65,7 @@ async def retrieve_medical_knowledge(ctx: RunContextWrapper[Any], query: str) ->
         return f"Error retrieving medical knowledge: {str(e)}"
 
 diagnoser_agent = Agent(
-    name="Diagnoser",
+    name="Diagnostic Specialist",
     instructions=load_instructions("diagnoser"),
     tools=[retrieve_medical_knowledge],
     model="gpt-4o",

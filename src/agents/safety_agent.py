@@ -89,7 +89,7 @@ Remember: Always err on the side of caution with patient safety.
         return f"Error retrieving patient safety information: {str(e)}. CRITICAL: Do not provide medication recommendations without safety verification. Recommend consulting healthcare provider."
 
 safety_agent = Agent(
-    name="Safety Agent",
+    name="Medication Safety Specialist",
     instructions=load_instructions("safety_agent"),
     tools=[check_patient_safety],
     model="gpt-4.1-nano",
