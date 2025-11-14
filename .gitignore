@@ -19,7 +19,7 @@ api.log
 embeddings/*
 
 .github/
-docs/
+
 documents/
 test_scripts/
 
