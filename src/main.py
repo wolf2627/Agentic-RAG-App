@@ -2,7 +2,7 @@ from agents import Agent, Runner
 from src.models.model import PatientQuery, MedicalContext, QueryClassification, TranslatedQuery
 from src.agents import (
     translator_agent,
-    general_doctor_agent,
+    triage_nurse,
     diagnoser_agent,
     medical_assistant,
     native_language_agent,
@@ -74,7 +74,7 @@ async def process_patient_query(query: PatientQuery):
     
     # Phase 2: Triage and Processing
     classification_result = await Runner.run(
-        general_doctor_agent,
+        triage_nurse,
         translation.translated_text,
         context=agent_context
     )

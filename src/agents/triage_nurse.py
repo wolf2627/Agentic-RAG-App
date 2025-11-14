@@ -5,9 +5,9 @@ from .helper import load_instructions
 
 # This agent only classifies queries, it doesn't hand off
 # The routing logic is handled in main.py
-general_doctor_agent = Agent(
+triage_nurse = Agent(
     name="Triage Nurse",
-    instructions=load_instructions("general_doctor"),
+    instructions=load_instructions("triage_nurse"),
     output_type=QueryClassification,
     # Removed handoffs - we'll handle routing in main.py instead
     input_guardrails=[input_safety_guardrail],
