@@ -51,10 +51,10 @@ API endpoints and integration guide:
 The system uses 6 specialized AI agents, each with a specific role:
 1. **Language Interpreter** - Language detection and translation
 2. **Triage Nurse** - Query classification and routing
-3. **Medical Assistant** - Simple queries and administrative tasks
-4. **Diagnostic Specialist** - Complex medical diagnosis with RAG
-5. **Medication Safety Specialist** - Safety checks with RAG
-6. **Response Translator** - Translate response to patient's language
+3. **Medical Assistant** - Simple queries and admin tasks
+4. **Diagnostic Specialist** - Complex diagnosis with RAG
+5. **Safety Agent** - Safety checks with RAG
+6. **Response Translator** - Back to native language
 
 ### RAG (Retrieval-Augmented Generation)
 - Retrieves patient-specific medical records from vector database

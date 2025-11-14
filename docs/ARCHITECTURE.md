@@ -18,26 +18,32 @@
 ┌─────────────────────────────────────────────────────────────────────┐
 │                      Multi-Agent Workflow                           │
 │                                                                     │
-│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐           │
-│  │   Language   │───▶│   Triage    │───▶│ Specialized  │           │
-│  │  Interpreter │    │    Nurse     │    │    Agents    │           │
-│  └──────────────┘    └──────────────┘    └──────┬───────┘           │
-│         │                    │                   │                  │
-│         │                    │              ┌────┴──────┐           │
-│         │                    │              │           │           │
-│         │                    │         ┌────▼────┐ ┌───▼─────┐      │
-│         │                    │         │Medical  │ │Diagnostic│     │
-│         │                    │         │Assistant│ │Specialist│     │
-│         │                    │         └────┬────┘ └───┬─────┘     │
-│         │                    │              │          │           │
-│         │                    │         ┌────▼──────────▼─────┐     │
-│         │                    │         │Medication Safety    │     │
-│         │                    │         │    Specialist       │     │
-│         │                    │         └─────────┬───────────┘     │
-│         │                    │                   │                 │
-│  ┌──────▼────────────────────▼───────────────────▼──────┐          │
-│  │              Response Translator                     │          │
-│  └──────────────────────────┬───────────────────────────┘          │
+│  ┌──────────────┐     ┌──────────────┐                              │
+│  │   Language   │───▶│    Triage     │                              │
+│  │  Interpreter │     │    Nurse     │                              │
+│  └──────────────┘     └──────┬───────┘                              │
+│                              │                                      │
+│                              │ Classification Routes:               │
+│                              │                                      │
+│              ┌───────────────┼───────────────┐                      │
+│              │               │               │                      │
+│         Administrative   Safety         Complex                     │
+│         or Simple       Critical       Diagnostic                   │
+│              │               │               │                      │
+│              ▼               ▼               ▼                      │
+│       ┌─────────────┐ ┌─────────────┐ ┌─────────────┐               │
+│       │  Medical    │ │   Safety    │ │ Diagnostic  │               │
+│       │  Assistant  │ │   Agent     │ │  Specialist │               │
+│       │             │ │  (+ RAG)    │ │  (+ RAG)    │               │
+│       └──────┬──────┘ └──────┬──────┘ └──────┬──────┘               │
+│              │               │               │                      │
+│              └───────────────┼───────────────┘                      │
+│                              │                                      │
+│                              ▼                                      │
+│                   ┌────────────────────┐                            │
+│                   │     Response       │                            │
+│                   │    Translator      │                            │
+│                   └─────────┬──────────┘                            │
 │                             │                                       │
 └─────────────────────────────┼───────────────────────────────────────┘
                               │
@@ -88,10 +94,10 @@ QueryClassification:
 ```
 
 **Routing Logic:**
-- **Administrative** → Medical Assistant (no patient data)
-- **Safety Critical** → Medication Safety Specialist (with RAG)
-- **Complex** → Diagnostic Specialist (with RAG)
-- **Simple** → Medical Assistant (general guidance)
+- **Administrative** → Medical Assistant (no RAG)
+- **Safety Critical** → Safety Agent (with RAG - allergies, medications)
+- **Complex** → Diagnostic Specialist (with RAG - full medical records)
+- **Simple/Other** → Medical Assistant (no RAG)
 
 ### 3. Medical Assistant
 **Model:** Configurable via `MEDICAL_ASSISTANT_MODEL` (default: gpt-4.1-nano)
@@ -125,7 +131,7 @@ QueryClassification:
 - Provides source attribution
 - Filters by patient_id
 
-### 5. Medication Safety Specialist
+### 5. Safety Agent
 **Model:** Configurable via `SAFETY_AGENT_MODEL` (default: gpt-4o)
 
 **Responsibilities:**
@@ -228,21 +234,25 @@ All RAG queries include `patient_id` filter to ensure:
    └─ Determine routing
    │
    ▼
-5. Route to Specialist
+5. Route to Specialist (PARALLEL - ONE route chosen)
    │
    ├─ Administrative?     → Medical Assistant
    │                         (No RAG)
+   │                         └─ Returns response
    │
-   ├─ Safety Critical?    → Medication Safety Specialist
-   │                         └─ check_patient_safety()
+   ├─ Safety Critical?    → Safety Agent
+   │                         └─ check_patient_safety() tool
    │                             └─ RAG: allergies, medications
+   │                             └─ Returns safety-checked response
    │
    ├─ Complex Diagnosis?  → Diagnostic Specialist
-   │                         └─ retrieve_medical_knowledge()
-   │                             └─ RAG: patient records
+   │                         └─ retrieve_medical_knowledge() tool
+   │                             └─ RAG: full patient records
+   │                             └─ Returns diagnostic response
    │
    └─ Simple Medical?     → Medical Assistant
-                             (General guidance)
+                             (General guidance, no RAG)
+                             └─ Returns response
    │
    ▼
 6. Response Translator

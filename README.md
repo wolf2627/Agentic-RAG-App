@@ -84,7 +84,7 @@ Language Interpreter → Detects & translates language
 Triage Nurse → Classifies query & determines route
     ↓
     ├─ Administrative or Simple Medical → Medical Assistant
-    ├─ Safety-Critical → Medication Safety Specialist (+ RAG)
+    ├─ Safety-Critical → Safety Agent (+ RAG)
     └─ Complex Diagnosis → Diagnostic Specialist (+ RAG)
     ↓
 Response Translator → Translates back to patient's language
@@ -98,7 +98,7 @@ Final Response
 2. **Triage Nurse**: Classifies queries, determines urgency, routes to specialist
 3. **Medical Assistant**: Handles simple queries and administrative tasks
 4. **Diagnostic Specialist**: Complex symptom analysis with patient medical records
-5. **Medication Safety Specialist**: Safety checks for medications with allergy verification
+5. **Safety Agent**: Safety checks for medications with allergy verification
 6. **Response Translator**: Translates responses back to patient's native language
 
 ## Usage Examples

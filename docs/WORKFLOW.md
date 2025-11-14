@@ -141,7 +141,7 @@ agent_context = {
     "reasoning": "Medication query requiring allergy check"
 }
 ```
-**Routes to:** Medication Safety Specialist (with RAG)
+**Routes to:** Safety Agent (with RAG)
 
 #### 3. Complex Diagnostic Queries
 **Examples:**
@@ -216,7 +216,7 @@ Response: General information
 
 ---
 
-### Route B: Medication Safety Specialist
+### Route B: Safety Agent
 **Used for:** Safety-critical medication queries
 **Model:** `SAFETY_AGENT_MODEL` (gpt-4o)
 
@@ -224,7 +224,7 @@ Response: General information
 Query: "Can I take aspirin?"
     │
     ▼
-Medication Safety Specialist
+Safety Agent
     │
     ├─ Calls: check_patient_safety()
     │     │
