@@ -8,6 +8,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
+# Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     bash \
     build-essential \
@@ -23,13 +24,20 @@ RUN curl -LsSf https://astral.sh/uv/install.sh | sh && \
     (ln -sf /root/.cargo/bin/uv /usr/local/bin/uv || true) && \
     uv --version
 
+# Copy dependency files
 COPY pyproject.toml uv.lock ./
 
+# Install Python dependencies
 RUN uv sync --frozen --no-dev
 
+# Copy application code
 COPY . .
 
+# Make entrypoint executable
 RUN chmod +x /app/docker-entrypoint.sh
+
+# Create directories for documents and embeddings if they don't exist
+RUN mkdir -p /app/documents /app/embeddings
 
 EXPOSE 8000
 
