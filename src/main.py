@@ -58,18 +58,25 @@ async def process_patient_query(query: PatientQuery):
     print(f"Translation: {translation.translated_text}")
     
     # Initialize context with detected language
+    medical_history = fetch_patient_history(query.patient_id)
     context = MedicalContext(
         original_language=translation.language_code,
         patient_id=query.patient_id,
         session_id=generate_session_id(),
-        medical_history=fetch_patient_history(query.patient_id)
+        medical_history=medical_history
     )
+    
+    # Prepare context dict for agents
+    agent_context = {
+        "patient_id": query.patient_id,
+        "medical_history": medical_history
+    }
     
     # Phase 2: Triage and Processing
     classification_result = await Runner.run(
         general_doctor_agent,
         translation.translated_text,
-        context={"patient_id": query.patient_id}
+        context=agent_context
     )
     
     # Debug: Print what we got
@@ -85,20 +92,43 @@ async def process_patient_query(query: PatientQuery):
         import json
         classification_dict = json.loads(classification)
         classification = QueryClassification(**classification_dict)
-    
+
+
     # Route based on classification
-    if classification.is_complex:
+    if classification.is_administrative:
+        # Administrative queries (appointments, billing, etc.) - no medical context needed
+        administrative = await Runner.run(
+            ai_agent,
+            translation.translated_text,
+            context=agent_context
+        )
+        response = administrative.final_output
+    
+    elif classification.is_safety_critical:
+        # Safety-critical route (medication safety, allergies, drug interactions)
+        from src.agents import safety_agent
+        safety = await Runner.run(
+            safety_agent,
+            translation.translated_text,
+            context=agent_context
+        )
+        response = safety.final_output
+    
+    elif classification.is_complex:
+        # Complex diagnostic route with RAG
         diagnosis = await Runner.run(
             diagnoser_agent,
             translation.translated_text,
-            context={"patient_id": query.patient_id}  # Pass patient_id to diagnoser
+            context=agent_context
         )
         response = diagnosis.final_output
+    
     else:
+        # Simple medical queries
         simple_response = await Runner.run(
             ai_agent,
             translation.translated_text,
-            context={"patient_id": query.patient_id}
+            context=agent_context
         )
         response = simple_response.final_output
     
@@ -106,7 +136,7 @@ async def process_patient_query(query: PatientQuery):
     final_response = await Runner.run(
         native_language_agent,
         f"Translate to {translation.detected_language}: {response}",
-        context={"patient_id": query.patient_id}
+        context=agent_context  # Pass complete context including medical history
     )
     
     return {

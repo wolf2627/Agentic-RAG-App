@@ -22,7 +22,9 @@ class TranslatedQuery(BaseModel):
 
 class QueryClassification(BaseModel):
     is_complex: bool
-    category: str  # e.g., "respiratory", "cardiovascular"
+    is_administrative: bool  # Non-medical queries (appointments, billing, etc.)
+    is_safety_critical: bool  # Medication safety, allergies, drug interactions
+    category: str  # e.g., "respiratory", "cardiovascular", "administrative", "safety"
     urgency_level: str  # "low", "medium", "high", "emergency"
     reasoning: str
     requires_rag: bool
